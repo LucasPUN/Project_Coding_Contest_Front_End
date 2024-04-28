@@ -82,6 +82,9 @@ export default function TopNavBar() {
                     width: '100vw',
                     height: '80px',
                     position: 'sticky',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     top: 0,
                     zIndex: 999,
                 }}
