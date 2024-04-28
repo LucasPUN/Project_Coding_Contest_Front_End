@@ -313,8 +313,8 @@ class Editor extends React.Component {
                                 </Button>
                             </Grid>
                             <Grid className="col-md-6">
-                                {this.state.submitTime === 0 ? (
-                                    <Button bsStyle="success" type="button" style={{fontSize: '15px'}} onClick={this.handleSubmit} disabled>
+                                {this.state.submitTime == 0 ? (
+                                    <Button type="button" style={{fontSize: '15px', backgroundColor: 'green'}} onClick={this.handleSubmit} disabled>
                                         Submit Code {this.state.submitTime}/3
                                     </Button>
                                 ) : (

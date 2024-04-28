@@ -83,7 +83,8 @@ const CountdownTimer = () => {
     return (
         <div>
             <div style={{
-                fontSize: '20px'
+                fontSize: '20px',
+                marginRight: '10px'
             }}>
                 <span>Countdown :</span>
                 <span>{String(time.hours).padStart(2, '0')}:</span>
