@@ -60,7 +60,7 @@ class Editor extends React.Component {
     }
 
     componentDidMount() {
-        CompilerApi.getTask('java', this.props.question.questionId) //default load java file
+        CompilerApi.getTask('java', this.props.question.id) //default load java file
             //  .then(res => res.json())
             .then((task) => {
                 console.log(task);
@@ -83,7 +83,7 @@ class Editor extends React.Component {
         console.log('handleRun lang: ' + task.lang);
         console.log('handleRun this.state.output: ' + this.state.output);
 
-        CompilerApi.run(task,this.props.question.questionId)
+        CompilerApi.run(task,this.props.question.id)
             .then((res) => {
                 // Append the new test case result to the existing message
                 const endTime = new Date().getTime();
@@ -106,7 +106,7 @@ class Editor extends React.Component {
 
         try {
             const res = await new Promise((resolve, reject) => {
-                CompilerApi.run(task, this.props.question.questionId)
+                CompilerApi.run(task, this.props.question.id)
                     .then(resolve)
                     .catch(reject);
             });
@@ -121,7 +121,7 @@ class Editor extends React.Component {
             const userScoreData = {
                 eventid: selectedEventId,
                 userid: loginUser.id,
-                questionid: this.props.question.questionId,
+                questionid: this.props.question.id,
                 testcasePassTotal: localStorage.getItem('counter'),
             };
 

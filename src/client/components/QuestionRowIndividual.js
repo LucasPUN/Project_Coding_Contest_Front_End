@@ -30,7 +30,7 @@ function QuestionRowIndividual() {
             const eventStatus = sessionStorage.getItem('eventStatus')
             const response1 = await getEventUser(loginUser.accessToken, selectedEventId)
             const eventUser = response1.data.firstName
-            if (eventStatus === "O" && eventUser === loginUser.firstname) {
+            if (eventStatus === "O" && eventUser === loginUser.firstName) {
                 console.log(eventUser);
                 getEventQuestionList();
             }
