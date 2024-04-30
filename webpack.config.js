@@ -46,7 +46,7 @@ const commonConfig = merge([
 ]);
 
 const productionConfig = merge([
-  parts.loadEnv('http://ec2-54-255-147-142.ap-southeast-1.compute.amazonaws.com:8080'),
+  parts.loadEnv('http://ec2-54-255-147-142.ap-southeast-1.compute.amazonaws.com:8083'),
 
   parts.extractCSS({
     use: 'css-loader',

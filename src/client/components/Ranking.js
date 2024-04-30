@@ -17,6 +17,9 @@ const Ranking = () => {
     const [sortedData, setSortedData] = useState();
     const selectedEventId = sessionStorage.getItem('selectedEventId');
     const [userTestCaseDataList, setUserTestCaseDataList] = useState();
+    const question1 = sessionStorage.getItem('question1')
+    const question2 = sessionStorage.getItem('question2')
+    const question3 = sessionStorage.getItem('question3')
 
     const getUserTestCaseList = async () => {
         try {
@@ -31,9 +34,9 @@ const Ranking = () => {
             for (const userTestData of userTestCaseDataList) {
                 const newDataEntry = {
                     name: userTestData.name,
-                    Q1: userTestData.score.Q1 || 0,
-                    Q2: userTestData.score.Q2 || 0,
-                    Q3: userTestData.score.Q3 || 0,
+                    Q1: userTestData.score["Q"+question1] || 0,
+                    Q2: userTestData.score["Q"+question2] || 0,
+                    Q3: userTestData.score["Q"+question3] || 0,
                 };
 
                 data.push(newDataEntry);
@@ -92,11 +95,11 @@ const Ranking = () => {
             console.log(filteredUserQuestionSubmit)
         }
 
-        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber.Q1}, (_, index) => (
+        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question1]}, (_, index) => (
             <FontAwesomeIcon icon={faCircleCheck} style={{color: '#63E6BE',}}/>
         ));
 
-        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber.Q1))}, (_, index) => (
+        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question1]))}, (_, index) => (
             <FontAwesomeIcon icon={faCircleXmark} style={{color: '#c40808',}}/>
         ));
 
@@ -126,16 +129,16 @@ const Ranking = () => {
                             <Col>
                                 {/*<h5 style={{marginBottom: '5px'}}>Test Case:</h5>*/}
                                 <h5 style={{marginBottom: '5px'}}>{iconRight}{iconWrong}</h5>
-                                {filteredUserQuestionSubmit.score.Q1 === 5 ? <><FontAwesomeIcon icon={faCrown}
+                                {filteredUserQuestionSubmit.score["Q"+question1] === 5 ? <><FontAwesomeIcon icon={faCrown}
                                                                                                 style={{color: "#FFD43B",}}/><FontAwesomeIcon
                                     icon={faClock}
-                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score.Q1 === 4 ?
+                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score["Q"+question1] === 4 ?
                                     <FontAwesomeIcon icon={faCrown} style={{color: "#FFD43B",}}/> : null}
                                 {filteredUserQuestionSubmit && (
                                     <div style={{color: 'white'}}>
-                                        Submittime: {filteredUserQuestionSubmit.submitTime.Q1}
+                                        Submittime: {filteredUserQuestionSubmit.submitTime["Q"+question1]}
                                         <br/>
-                                        Runtime: {filteredUserQuestionSubmit.runtime.Q1}ms
+                                        Runtime: {filteredUserQuestionSubmit.runtime["Q"+question1]}ms
                                         <br/>
                                     </div>
                                 )}
@@ -161,11 +164,11 @@ const Ranking = () => {
             console.log(filteredUserQuestionSubmit)
         }
 
-        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber.Q2}, (_, index) => (
+        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question2]}, (_, index) => (
             <FontAwesomeIcon icon={faCircleCheck} style={{color: '#63E6BE',}}/>
         ));
 
-        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber.Q2))}, (_, index) => (
+        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question2]))}, (_, index) => (
             <FontAwesomeIcon icon={faCircleXmark} style={{color: '#c40808',}}/>
         ));
 
@@ -194,16 +197,16 @@ const Ranking = () => {
                             <Col>
                                 {/*<h5 style={{marginBottom: '5px'}}>Test Case:</h5>*/}
                                 <h5 style={{marginBottom: '5px'}}>{iconRight}{iconWrong}</h5>
-                                {filteredUserQuestionSubmit.score.Q2 === 5 ? <><FontAwesomeIcon icon={faCrown}
+                                {filteredUserQuestionSubmit.score["Q"+question2] === 5 ? <><FontAwesomeIcon icon={faCrown}
                                                                                                 style={{color: "#FFD43B",}}/><FontAwesomeIcon
                                     icon={faClock}
-                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score.Q2 === 4 ?
+                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score["Q"+question2] === 4 ?
                                     <FontAwesomeIcon icon={faCrown} style={{color: "#FFD43B",}}/> : null}
                                 {filteredUserQuestionSubmit && (
                                     <div style={{color: 'white'}}>
-                                        Submittime: {filteredUserQuestionSubmit.submitTime.Q2}
+                                        Submittime: {filteredUserQuestionSubmit.submitTime["Q"+question2]}
                                         <br/>
-                                        Runtime: {filteredUserQuestionSubmit.runtime.Q2}ms
+                                        Runtime: {filteredUserQuestionSubmit.runtime["Q"+question2]}ms
                                         <br/>
                                     </div>
                                 )}
@@ -229,11 +232,11 @@ const Ranking = () => {
             console.log(filteredUserQuestionSubmit)
         }
 
-        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber.Q3}, (_, index) => (
+        iconRight = Array.from({length: filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question3]}, (_, index) => (
             <FontAwesomeIcon icon={faCircleCheck} style={{color: '#63E6BE',}}/>
         ));
 
-        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber.Q3))}, (_, index) => (
+        iconWrong = Array.from({length: (10 - (filteredUserQuestionSubmit.passingTestCaseNumber["Q"+question3]))}, (_, index) => (
             <FontAwesomeIcon icon={faCircleXmark} style={{color: '#c40808',}}/>
         ));
 
@@ -262,16 +265,16 @@ const Ranking = () => {
                             <Col>
                                 {/*<h5 style={{marginBottom: '5px'}}>Test Case:</h5>*/}
                                 <h5 style={{marginBottom: '5px'}}>{iconRight}{iconWrong}</h5>
-                                {filteredUserQuestionSubmit.score.Q3 === 5 ? <><FontAwesomeIcon icon={faCrown}
+                                {filteredUserQuestionSubmit.score["Q"+question3] === 5 ? <><FontAwesomeIcon icon={faCrown}
                                                                                                 style={{color: "#FFD43B",}}/><FontAwesomeIcon
                                     icon={faClock}
-                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score.Q3 === 4 ?
+                                    style={{color: "#ffffff",}}/></> : filteredUserQuestionSubmit.score["Q"+question3] === 4 ?
                                     <FontAwesomeIcon icon={faCrown} style={{color: "#FFD43B",}}/> : null}
                                 {filteredUserQuestionSubmit && (
                                     <div style={{color: 'white'}}>
-                                        Submittime: {filteredUserQuestionSubmit.submitTime.Q3}
+                                        Submittime: {filteredUserQuestionSubmit.submitTime["Q"+question3]}
                                         <br/>
-                                        Runtime: {filteredUserQuestionSubmit.runtime.Q3}ms
+                                        Runtime: {filteredUserQuestionSubmit.runtime["Q"+question3]}ms
                                         <br/>
                                     </div>
                                 )}

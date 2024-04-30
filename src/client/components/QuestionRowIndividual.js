@@ -17,7 +17,10 @@ function QuestionRowIndividual() {
         try {
             const response = await getQuestionsList(loginUser.accessToken, selectedEventId)
             setEventQuestionList(response.data);
-            console.log(response)
+            sessionStorage.setItem('question1', response.data[0].id)
+            sessionStorage.setItem('question2', response.data[1].id)
+            sessionStorage.setItem('question3', response.data[2].id)
+            console.log(response.data[0].id)
         } catch (error) {
             console.error('Failed to get questions:', error);
         }

@@ -9,16 +9,19 @@ const DetailDashboard = () => {
     const selectedEventId = sessionStorage.getItem('selectedEventId');
     const [userTestDataList, setUserTestDataList] = useState([]);
     const [redirectToDash, setRedirectToDash] = useState(false);
-
+    const question1 = sessionStorage.getItem('question1')
+    const question2 = sessionStorage.getItem('question2')
+    const question3 = sessionStorage.getItem('question3')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getUserScoresByEventId(loginUser.accessToken, selectedEventId);
                 // 对用户测试数据列表按照总分排序
+                console.log(question1);
                 const sortedUserDataList = response.data.result.sort((a, b) => {
-                    const totalScoreA = a.score.Q1 + a.score.Q2 + a.score.Q3;
-                    const totalScoreB = b.score.Q1 + b.score.Q2 + b.score.Q3;
+                    const totalScoreA = a.score["Q"+question1] + a.score["Q"+question2] + a.score["Q"+question3];
+                    const totalScoreB = b.score["Q"+question1] + b.score["Q"+question2] + b.score["Q"+question3];
                     return totalScoreB - totalScoreA; // 降序排列
                 });
                 setUserTestDataList(sortedUserDataList);
@@ -65,22 +68,22 @@ const DetailDashboard = () => {
                         <React.Fragment key={index}>
                             <tr>
                                 <td rowSpan="3">{userTestData.name}</td>
-                                <td>Q1: {userTestData.score.Q1}</td>
-                                <td>{userTestData.passingTestCaseNumber.Q1}</td>
-                                <td>{userTestData.submitTime.Q1}</td>
-                                <td>{userTestData.runtime.Q1}</td>
+                                <td>Q1: {userTestData.score["Q"+question1]}</td>
+                                <td>{userTestData.passingTestCaseNumber["Q"+question1]}</td>
+                                <td>{userTestData.submitTime["Q"+question1]}</td>
+                                <td>{userTestData.runtime["Q"+question1]}</td>
                             </tr>
                             <tr>
-                                <td>Q2: {userTestData.score.Q2}</td>
-                                <td>{userTestData.passingTestCaseNumber.Q2}</td>
-                                <td>{userTestData.submitTime.Q2}</td>
-                                <td>{userTestData.runtime.Q2}</td>
+                                <td>Q2: {userTestData.score["Q"+question2]}</td>
+                                <td>{userTestData.passingTestCaseNumber["Q"+question2]}</td>
+                                <td>{userTestData.submitTime["Q"+question2]}</td>
+                                <td>{userTestData.runtime["Q"+question2]}</td>
                             </tr>
                             <tr>
-                                <td>Q3: {userTestData.score.Q3}</td>
-                                <td>{userTestData.passingTestCaseNumber.Q3}</td>
-                                <td>{userTestData.submitTime.Q3}</td>
-                                <td>{userTestData.runtime.Q3}</td>
+                                <td>Q3: {userTestData.score["Q"+question3]}</td>
+                                <td>{userTestData.passingTestCaseNumber["Q"+question3]}</td>
+                                <td>{userTestData.submitTime["Q"+question3]}</td>
+                                <td>{userTestData.runtime["Q"+question3]}</td>
                             </tr>
                         </React.Fragment>
                     ))}
