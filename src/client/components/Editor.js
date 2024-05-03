@@ -119,9 +119,9 @@ class Editor extends React.Component {
             console.log(this.props.question.questionId)
 
             const userScoreData = {
-                eventid: selectedEventId,
-                userid: loginUser.id,
-                questionid: this.props.question.id,
+                eventId: selectedEventId,
+                userId: loginUser.id,
+                questionId: this.props.question.id,
                 testcasePassTotal: localStorage.getItem('counter'),
             };
 

@@ -6,11 +6,18 @@ import {getQuestions, getQuestionsList} from "../api/QuestionApi";
 import {getEventQuestions} from "../api/EventQuestionApi";
 import {getEventByid} from "../api/EventApi";
 import {getEventUser} from "../api/EventUserApi";
+import {Button, Col, Form, FormGroup, Grid} from "react-bootstrap";
+import LangSelector from "./controls/LangSelector";
+import CodeEditor from "./controls/CodeEditor";
+import StatusImage from "./controls/StatusImage";
+import AlertDismissable from "./controls/AlertDismissable";
+import OutputBox from "./controls/OutputBox";
+import LoadingPage from "./LoadingPage";
 
 function QuestionRowIndividual() {
     const storedUser = JSON.parse(localStorage.getItem('loginUser'));
     const loginUser = storedUser || null;
-    const [eventQuestionList, setEventQuestionList] = useState([]);
+    const [eventQuestionList, setEventQuestionList] = useState(undefined);
     const selectedEventId = sessionStorage.getItem('selectedEventId');
 
     const getEventQuestionList = async () => {
@@ -51,25 +58,30 @@ function QuestionRowIndividual() {
     return (
         <>
             <TopNavBar/>
-            {Array.isArray(eventQuestionList) && eventQuestionList.map((question, index) => (
-                <div
-                    key={question.id}
-                    style={{
-                        display: 'flex',
-                        marginBottom: '100px',
-                        marginLeft: '20px'
-                    }}
-                >
-                    <div
-                        style={{
-                            marginLeft: '20px'
-                        }}
-                    >
-                        <QuestionAreaIndividual question={question}/>
-                    </div>
-                    <Editor question={question}/>
-                </div>
-            ))}
+            {
+                eventQuestionList ?
+                    eventQuestionList.map((question, index) => (
+                        <div
+                            key={question.id}
+                            style={{
+                                display: 'flex',
+                                marginBottom: '100px',
+                                marginLeft: '20px'
+                            }}
+                        >
+                            <div
+                                style={{
+                                    marginLeft: '20px'
+                                }}
+                            >
+                                <QuestionAreaIndividual question={question}/>
+                            </div>
+                            <Editor question={question}/>
+                        </div>
+                    ))
+                    :
+                    <LoadingPage/>
+            }
         </>
     );
 }

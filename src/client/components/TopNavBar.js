@@ -14,7 +14,7 @@ import CountdownTimer from "./Timer";
 export default function TopNavBar() {
     const storedUser = JSON.parse(localStorage.getItem('loginUser'));
     const loginUser = storedUser || null;
-    const [eventUserList, setEventUserList] = useState([]);
+    const [eventUserList, setEventUserList] = useState(undefined);
     const selectedEventId = sessionStorage.getItem('selectedEventId');
     const [eventName, setEventName] = useState("");
     const [redirectToNext, setRedirectToNext] = useState(false);
@@ -95,36 +95,53 @@ export default function TopNavBar() {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                 }}>
+                    {eventName ?
+                        <div style={{
+                            display: 'flex',
+                            fontSize: "30px",
+                            marginRight: '30px'
+                        }}>
+                            {eventName}
+                        </div>
+                        :
+                        <div className="spinner-border" role="status"
+                             style={{
+                                 width: '3rem',
+                                 height: '3rem',
+                                 marginRight: '30px'
+                             }}
+                        />
 
-                    <div style={{
-                        display: 'flex',
-                        fontSize: "30px",
-                        marginRight: '20px'
-                    }}>
-                        {eventName}
-                    </div>
+                    }
 
                     <div>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            <FontAwesomeIcon
-                                icon={faCircleUser}
-                                style={{
-                                    color: '#FFD43B',
-                                    marginRight: '20px',
-                                }}
-                                size="4x"
-                            />
-                            {loginUser && (
+                        {eventUserList ?
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <FontAwesomeIcon
+                                    icon={faCircleUser}
+                                    style={{
+                                        color: '#FFD43B',
+                                        marginRight: '30px',
+                                    }}
+                                    size="4x"
+                                />
                                 <div>
                                     <span style={{
                                         fontSize: '3em',
-                                        marginRight: '10px'
+                                        marginRight: '30px'
                                     }}>
                                     {eventUserList.firstName || "You are not in this content"}
                                     </span>
                                 </div>
-                            )}
-                        </div>
+                            </div> :
+                            <div className="spinner-border" role="status"
+                                 style={{
+                                     width: '3rem',
+                                     height: '3rem',
+                                     marginRight: '30px'
+                                 }}
+                            />
+                        }
                     </div>
 
                     <CountdownTimer/>
@@ -133,7 +150,7 @@ export default function TopNavBar() {
                         <button
                             style={{
                                 backgroundColor: '#198754',
-                                marginRight: '10px'
+                                marginRight: '30px'
                             }}
                             type="button"
                             className="btn btn-primary btn-lg"
@@ -146,7 +163,7 @@ export default function TopNavBar() {
                             style={{
                                 marginLeft: '2px',
                                 backgroundColor: '#198754',
-                                marginRight: '10px'
+                                marginRight: '30px'
                             }}
                             type="button"
                             className="btn btn-primary btn-lg"
