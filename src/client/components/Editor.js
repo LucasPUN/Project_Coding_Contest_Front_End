@@ -44,7 +44,9 @@ class Editor extends React.Component {
             },
             executionTime: 0,
             output: '',
-            submitTime:3,
+            submitTime: 3,
+            isRunning: false,
+            isSubmitting: false
         };
 
         this.handleRun = this.handleRun.bind(this);
@@ -76,6 +78,7 @@ class Editor extends React.Component {
     }
 
     handleRun(event) {
+        this.setState({isRunning: true})
         event.preventDefault();
         const {task} = this.state;
         const startTime = new Date().getTime();
@@ -83,13 +86,13 @@ class Editor extends React.Component {
         console.log('handleRun lang: ' + task.lang);
         console.log('handleRun this.state.output: ' + this.state.output);
 
-        CompilerApi.run(task,this.props.question.id)
+        CompilerApi.run(task, this.props.question.id)
             .then((res) => {
                 // Append the new test case result to the existing message
                 const endTime = new Date().getTime();
                 const executionTime = endTime - startTime;
                 this.setState({response: res, executionTime});
-
+                this.setState({isRunning: false})
             })
             .catch((error) => {
                 console.log(error);
@@ -97,6 +100,7 @@ class Editor extends React.Component {
     }
 
     handleSubmit = async (event) => {
+        this.setState({isSubmitting: true})
         event.preventDefault();
         const {task} = this.state;
         const startTime = new Date().getTime();
@@ -130,22 +134,24 @@ class Editor extends React.Component {
                 submitTime: new Date()
             }
 
-            if(sessionStorage.getItem('eventStatus') != 'O'){
+            if (sessionStorage.getItem('eventStatus') != 'O') {
                 alert("You can not submit")
             } else {
-                    // Call the external putUserTestCase function
-                    // await createUserScores(loginUser.accessToken, userScoreData);
-                    await addUserScores(loginUser.accessToken, userScoreData, userQuestionData);
-                    // await this.handleUserQuestionSubmit(userQuestionData);
+                // Call the external putUserTestCase function
+                // await createUserScores(loginUser.accessToken, userScoreData);
+                await addUserScores(loginUser.accessToken, userScoreData, userQuestionData);
+                // await this.handleUserQuestionSubmit(userQuestionData);
 
-                    let {submitTime} = this.state;
-                    submitTime = submitTime - 1;
-                    this.setState({submitTime});
+                let {submitTime} = this.state;
+                submitTime = submitTime - 1;
+                this.setState({submitTime});
+                this.setState({isSubmitting: false})
             }
 
             // Continue with any other logic you want to execute after submitting the test case
         } catch (error) {
             console.error('Failed to submit test case:', error);
+            this.setState({isSubmitting: false})
         }
     };
 
@@ -192,7 +198,6 @@ class Editor extends React.Component {
     //         console.error('Failed to save response:', error);
     //     }
     // };
-
 
 
     // updateUserScores = async (userScoreData, userQuestionData) => {
@@ -307,21 +312,42 @@ class Editor extends React.Component {
                     <FormGroup>
                         <Col sm={5}>
                             <Grid className="col-md-6">
-                                <Button bsStyle="primary" type="button" style={{fontSize: '15px'}}
-                                        onClick={this.handleRun}>
-                                    Run Code
-                                </Button>
+                                {this.state.isRunning == true ?
+                                    <Button bsStyle="primary" type="button" style={{fontSize: '15px'}}
+                                            disabled>
+                                        Run Code
+                                    </Button>
+
+                                    :
+
+                                    <Button bsStyle="primary" type="button" style={{fontSize: '15px'}}
+                                            onClick={this.handleRun}>
+                                        Run Code
+                                    </Button>
+                                }
                             </Grid>
                             <Grid className="col-md-6">
-                                {this.state.submitTime == 0 ? (
-                                    <Button type="button" style={{fontSize: '15px', backgroundColor: 'green', color: 'white'}} onClick={this.handleSubmit} disabled>
+                                {this.state.isSubmitting == true ?
+                                    <Button type="button"
+                                            style={{fontSize: '15px', backgroundColor: 'green', color: 'white'}}
+                                            onClick={this.handleSubmit} disabled>
                                         Submit Code {this.state.submitTime}/3
                                     </Button>
-                                ) : (
-                                    <Button type="button" style={{fontSize: '15px', backgroundColor: 'green', color: 'white'}} onClick={this.handleSubmit}>
-                                        Submit Code {this.state.submitTime}/3
-                                    </Button>
-                                )}
+                                    :
+                                    this.state.submitTime == 0 ? (
+                                        <Button type="button"
+                                                style={{fontSize: '15px', backgroundColor: 'green', color: 'white'}}
+                                                onClick={this.handleSubmit} disabled>
+                                            Submit Code {this.state.submitTime}/3
+                                        </Button>
+                                    ) : (
+                                        <Button type="button"
+                                                style={{fontSize: '15px', backgroundColor: 'green', color: 'white'}}
+                                                onClick={this.handleSubmit}>
+                                            Submit Code {this.state.submitTime}/3
+                                        </Button>
+                                    )
+                                }
                             </Grid>
                             <Grid className="col-md-6">
                                 <StatusImage
