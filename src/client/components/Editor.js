@@ -37,6 +37,8 @@ class Editor extends React.Component {
             task: {
                 lang: 'Java',
                 code: '',
+                userId: loginUser.id,
+                userName: loginUser.userName
             },
             response: {
                 status: '0',
@@ -83,7 +85,7 @@ class Editor extends React.Component {
         const {task} = this.state;
         const startTime = new Date().getTime();
         console.log('handleRun code: ' + task.code);
-        console.log('handleRun lang: ' + task.lang);
+        console.log('handleRun lang: ' + task.userId);
         console.log('handleRun this.state.output: ' + this.state.output);
 
         CompilerApi.run(task, this.props.question.id)
@@ -106,6 +108,7 @@ class Editor extends React.Component {
         const startTime = new Date().getTime();
         console.log('handleRun code: ' + task.code);
         console.log('handleRun lang: ' + task.lang);
+        console.log(task);
         console.log('handleRun this.state.output: ' + this.state.output);
 
         try {

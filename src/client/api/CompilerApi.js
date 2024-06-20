@@ -15,11 +15,18 @@ class CompilerApi {
   }
 
   static run(answer, questionId) {
+    const userId = JSON.parse(localStorage.getItem('loginUser')).id;
+    const userName = JSON.parse(localStorage.getItem('loginUser')).userName;
+    const requestBody = {
+      ...answer,
+      userId: userId,
+      userName: userName
+    };
     return HttpHelper.fetch(
-      `${process.env.API_URL}/api/run/${questionId}`,
-      'POST',
-      this.requestHeaders(),
-      JSON.stringify(answer),
+        `${process.env.API_URL}/api/run/${questionId}`,
+        'POST',
+        this.requestHeaders(),
+        JSON.stringify(requestBody),
     );
   }
 }

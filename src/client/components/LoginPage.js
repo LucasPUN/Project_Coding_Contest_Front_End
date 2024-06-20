@@ -32,22 +32,22 @@ const LoginPage = ({ setLoginUser }) => {
             <section className="vh-100 vw-100">
                 <div className="container-fluid h-custom">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-9 col-lg-6 col-xl-5 container">
+                        <div className="col-xl-5 container">
                             <img src={logo} className="img-fluid" alt="Sample image" />
                         </div>
-                        <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <div className="col-xl-6 offset-xl-1">
                             <form>
                                 <div className="form-outline mb-4">
                                     <input
                                         type="email"
                                         id="form3Example3"
                                         className="form-control form-control-lg"
-                                        placeholder="Enter a valid email address"
+                                        placeholder="Enter username"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
                                     <label className="form-label" htmlFor="form3Example3">
-                                        Email address
+                                        Username
                                     </label>
                                 </div>
                                 <div className="form-outline mb-3">
