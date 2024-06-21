@@ -68,8 +68,8 @@ const GameModePage = () => {
 
             <h1 style={{marginTop: '10px'}}>Event</h1>
 
-            <div style={{width: '150px'}}>
-                <select
+            <div style={{width: '200px'}}>
+                <select style={{height: '50px', fontSize: '20px'}}
                     className="form-select"
                     aria-label="Default select example"
                     onChange={(e) => setSelectedEvent(e.target.value)}

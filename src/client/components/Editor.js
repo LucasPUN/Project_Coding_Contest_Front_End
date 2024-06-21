@@ -313,7 +313,7 @@ class Editor extends React.Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col sm={5}>
+                        <Col sm={12}>
                             <Grid className="col-md-6">
                                 {this.state.isRunning == true ?
                                     <Button bsStyle="primary" type="button" style={{fontSize: '15px'}}
